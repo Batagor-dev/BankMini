@@ -9,16 +9,12 @@ use App\Exports\TransactionsExport;
 
 class AdminTransactionController extends Controller
 {
-    public function index(Request $request)
-    {
-        $date = $request->input('date');
+    public function index(Request $request) {
+        $date = $request->input('date', now()->toDateString());
 
-        $transactions = Transaction::with(['user', 'teller'])
-            ->when($date, function ($query, $date) {
-                return $query->whereDate('created_at', $date);
-            })
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+        $transactions = Transaction::with(['teller', 'user'])
+            ->whereDate('created_at', $date)
+            ->paginate(10); // Menampilkan 10 transaksi per halaman
 
         return view('admin.transactions', compact('transactions'));
     }

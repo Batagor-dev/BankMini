@@ -26,6 +26,7 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
+
 // Route untuk logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -51,6 +52,10 @@ Route::middleware([RoleMiddleware::class . ':admin'])->prefix('admin')->name('ad
 
     // Keluhan Nasabah
     Route::get('/complaints', [AdminComplaintController::class, 'index'])->name('complaints');
+
+    
+    // Menyimpan keluhan ke database
+    Route::post('/complaints', [ComplaintController::class, 'store'])->name('user.complaints.store');
 });
 
 // Route untuk teller

@@ -1,82 +1,71 @@
-<!DOCTYPE html>
-<html lang="en" class="dark">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard Admin</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  @vite('resources/css/app.css')
-</head>
-<body class="bg-gray-100 dark:bg-gray-900 flex text-gray-800 dark:text-gray-100">
-
-
-  @extends('admin.layout')
+@extends('admin.layout')
 
 @section('content')
-     <!-- Main Content -->
-  <main class="flex-1 p-6 overflow-y-auto">
+<!-- Main Content -->
+<main class="flex-1 p-6 bg-gray-100 text-gray-800">
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
-      <h1 class="text-2xl font-bold">Dashboard Admin</h1>
-
+        <h1 class="text-3xl font-bold text-blue-600">Dashboard Admin</h1>
+        <div class="flex items-center space-x-4">
+            <input type="text" placeholder="Search Project" class="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
     </div>
 
     <!-- Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-        <h3 class="text-gray-500 dark:text-gray-300">Total Saldo Harian</h3>
-        <p class="text-2xl font-semibold text-blue-600">Rp {{ number_format($dailyBalance, 0, ',', '.') }}</p>
-      </div>
-      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-        <h3 class="text-gray-500 dark:text-gray-300">Total Saldo Keseluruhan</h3>
-        <p class="text-2xl font-semibold text-green-600">Rp {{ number_format($totalBalance, 0, ',', '.') }}</p>
-      </div>
-      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-        <h3 class="text-gray-500 dark:text-gray-300">Akun Aktif</h3>
-        <p class="text-xl font-semibold text-purple-600">{{ $activeAccounts }} akun aktif</p>
-      </div>
-      <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-        <h3 class="text-gray-500 dark:text-gray-300">Teller Aktif</h3>
-        <p class="text-xl font-semibold text-orange-600">{{ $activeTellers }} teller</p>
-      </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="bg-gradient-to-br from-purple-500 to-purple-700 text-white p-6 rounded-lg shadow-lg">
+            <h3 class="text-sm font-medium">Total Saldo Harian</h3>
+            <p class="text-2xl font-bold mt-2">Rp {{ number_format($dailyBalance, 0, ',', '.') }}</p>
+            <p class="text-sm mt-1">Increased by 50%</p>
+        </div>
+        <div class="bg-gradient-to-br from-blue-500 to-blue-700 text-white p-6 rounded-lg shadow-lg">
+            <h3 class="text-sm font-medium">Total Saldo Keseluruhan</h3>
+            <p class="text-2xl font-bold mt-2">Rp {{ number_format($totalBalance, 0, ',', '.') }}</p>
+            <p class="text-sm mt-1">Increased by 50%</p>
+        </div>
+        <div class="bg-gradient-to-br from-orange-500 to-orange-700 text-white p-6 rounded-lg shadow-lg">
+            <h3 class="text-sm font-medium">Akun Aktif</h3>
+            <p class="text-2xl font-bold mt-2">{{ $activeAccounts }} akun aktif</p>
+            <p class="text-sm mt-1">Increased by 30%</p>
+        </div>
+        <div class="bg-gradient-to-br from-pink-500 to-pink-700 text-white p-6 rounded-lg shadow-lg">
+            <h3 class="text-sm font-medium">Teller Aktif</h3>
+            <p class="text-2xl font-bold mt-2">{{ $activeTellers }} teller</p>
+            <p class="text-sm mt-1">Increased by 20%</p>
+        </div>
     </div>
 
     <!-- Riwayat Transaksi -->
-    <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
-      <h3 class="text-lg font-semibold mb-4">Riwayat Transaksi Terbaru</h3>
-      <table class="min-w-full text-sm text-left">
-        <thead class="bg-gray-100 dark:bg-gray-700">
-          <tr>
-            <th class="px-4 py-2">Waktu</th>
-            <th class="px-4 py-2">Nama</th>
-            <th class="px-4 py-2">Jenis</th>
-            <th class="px-4 py-2">Jumlah</th>
-          </tr>
-        </thead>
-        <tbody>
-          @forelse ($recentTransactions as $transaction)
-            <tr class="border-b border-gray-200 dark:border-gray-600">
-              <td class="px-4 py-2">{{ $transaction->created_at->format('d M Y, H:i') }}</td>
-              <td class="px-4 py-2">{{ $transaction->user->name ?? 'N/A' }}</td>
-              <td class="px-4 py-2 {{ $transaction->amount > 0 ? 'text-green-600' : 'text-red-600' }}">
-                {{ $transaction->amount > 0 ? 'Setor' : 'Tarik' }}
-              </td>
-              <td class="px-4 py-2">Rp {{ number_format(abs($transaction->amount), 0, ',', '.') }}</td>
-            </tr>
-          @empty
-            <tr>
-              <td colspan="4" class="text-center text-gray-500">Tidak ada transaksi terbaru.</td>
-            </tr>
-          @endforelse
-        </tbody>
-      </table>
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h3 class="text-lg font-bold text-gray-800 mb-4">Riwayat Transaksi Terbaru</h3>
+        <div class="overflow-x-auto">
+            <table class="min-w-full text-sm text-left">
+                <thead class="bg-blue-50 text-gray-700">
+                    <tr>
+                        <th class="px-4 py-3 text-left font-semibold">Waktu</th>
+                        <th class="px-4 py-3 text-left font-semibold">Nama</th>
+                        <th class="px-4 py-3 text-left font-semibold">Jenis</th>
+                        <th class="px-4 py-3 text-left font-semibold">Jumlah</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($recentTransactions as $transaction)
+                        <tr class="bg-white hover:bg-blue-50 transition-shadow shadow-md rounded-lg mb-3">
+                            <td class="px-4 py-3">{{ $transaction->created_at->format('d M Y, H:i') }}</td>
+                            <td class="px-4 py-3">{{ $transaction->user->name ?? 'N/A' }}</td>
+                            <td class="px-4 py-3 {{ $transaction->amount > 0 ? 'text-green-600' : 'text-red-600' }}">
+                                {{ $transaction->amount > 0 ? 'Setor' : 'Tarik' }}
+                            </td>
+                            <td class="px-4 py-3">Rp {{ number_format(abs($transaction->amount), 0, ',', '.') }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4" class="text-center text-gray-500 py-4">Tidak ada transaksi terbaru.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
     </div>
-  </main>
+</main>
 @endsection
-
-
- 
-
-  
-</body>
-</html>

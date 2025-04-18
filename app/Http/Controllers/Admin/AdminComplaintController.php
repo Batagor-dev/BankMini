@@ -8,8 +8,8 @@ class AdminComplaintController extends Controller
 {
     public function index()
     {
-        $complaints = Complaint::orderBy('created_at', 'desc')->paginate(10);
-
+        // Gunakan paginate() untuk pagination
+        $complaints = Complaint::paginate(10); // 10 item per halaman
         return view('admin.complaints', compact('complaints'));
     }
 }

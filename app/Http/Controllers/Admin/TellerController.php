@@ -12,9 +12,14 @@ class TellerController extends Controller
     /**
      * Menampilkan daftar teller.
      */
-    public function index() {
-        // Ambil hanya user dengan role 'teller'
-        $tellers = User::where('role', 'teller')->paginate(10); // Pagination tetap digunakan
+    public function index(Request $request) {
+        $search = $request->input('search');
+
+        // Filter berdasarkan nama dan role teller
+        $tellers = User::where('role', 'teller')
+                       ->where('name', 'like', "%{$search}%")
+                       ->paginate(10); // Menambahkan pagination dengan 10 item per halaman
+
         return view('admin.tellers.index', compact('tellers'));
     }
 
