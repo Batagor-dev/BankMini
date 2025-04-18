@@ -25,19 +25,19 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
       <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
         <h3 class="text-gray-500 dark:text-gray-300">Total Saldo Harian</h3>
-        <p class="text-2xl font-semibold text-blue-600">Rp 1.250.000</p>
+        <p class="text-2xl font-semibold text-blue-600">Rp {{ number_format($dailyBalance, 0, ',', '.') }}</p>
       </div>
       <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
         <h3 class="text-gray-500 dark:text-gray-300">Total Saldo Keseluruhan</h3>
-        <p class="text-2xl font-semibold text-green-600">Rp 50.000.000</p>
+        <p class="text-2xl font-semibold text-green-600">Rp {{ number_format($totalBalance, 0, ',', '.') }}</p>
       </div>
       <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
         <h3 class="text-gray-500 dark:text-gray-300">Akun Aktif</h3>
-        <p class="text-xl font-semibold text-purple-600">23 akun aktif</p>
+        <p class="text-xl font-semibold text-purple-600">{{ $activeAccounts }} akun aktif</p>
       </div>
       <div class="bg-white dark:bg-gray-800 p-4 rounded shadow">
         <h3 class="text-gray-500 dark:text-gray-300">Teller Aktif</h3>
-        <p class="text-xl font-semibold text-orange-600">3 teller</p>
+        <p class="text-xl font-semibold text-orange-600">{{ $activeTellers }} teller</p>
       </div>
     </div>
 
@@ -54,18 +54,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="border-b border-gray-200 dark:border-gray-600">
-            <td class="px-4 py-2">18 Apr 2025, 10:12</td>
-            <td class="px-4 py-2">Budi</td>
-            <td class="px-4 py-2 text-green-600">Setor</td>
-            <td class="px-4 py-2">Rp 500.000</td>
-          </tr>
-          <tr class="border-b border-gray-200 dark:border-gray-600">
-            <td class="px-4 py-2">18 Apr 2025, 09:30</td>
-            <td class="px-4 py-2">Sinta</td>
-            <td class="px-4 py-2 text-red-600">Tarik</td>
-            <td class="px-4 py-2">Rp 200.000</td>
-          </tr>
+          @forelse ($recentTransactions as $transaction)
+            <tr class="border-b border-gray-200 dark:border-gray-600">
+              <td class="px-4 py-2">{{ $transaction->created_at->format('d M Y, H:i') }}</td>
+              <td class="px-4 py-2">{{ $transaction->user->name ?? 'N/A' }}</td>
+              <td class="px-4 py-2 {{ $transaction->amount > 0 ? 'text-green-600' : 'text-red-600' }}">
+                {{ $transaction->amount > 0 ? 'Setor' : 'Tarik' }}
+              </td>
+              <td class="px-4 py-2">Rp {{ number_format(abs($transaction->amount), 0, ',', '.') }}</td>
+            </tr>
+          @empty
+            <tr>
+              <td colspan="4" class="text-center text-gray-500">Tidak ada transaksi terbaru.</td>
+            </tr>
+          @endforelse
         </tbody>
       </table>
     </div>

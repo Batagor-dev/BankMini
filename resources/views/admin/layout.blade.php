@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Layout</title>
     @vite('resources/css/app.css')
-  
 </head>
 <body class="flex bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
+    <!-- Sidebar -->
     <aside class="w-64 h-screen bg-white dark:bg-gray-800 shadow-lg flex flex-col justify-between">
         <div class="p-6">
             <h2 class="text-xl font-bold text-blue-600 dark:text-white mb-8">Bank Mini</h2>
             <nav class="space-y-2">
+                <!-- Dashboard -->
                 <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-blue-100 dark:hover:bg-gray-700 rounded">Dashboard</a>
+                
+                <!-- Manajemen Akun -->
                 <div class="relative group">
                     <button type="button" class="w-full text-left px-4 py-2 hover:bg-blue-100 dark:hover:bg-gray-700 rounded inline-flex justify-between items-center">
                         Manajemen Akun
@@ -26,11 +29,19 @@
                         <a href="{{ route('admin.admins.index') }}" class="block px-4 py-2 text-sm hover:bg-blue-50 dark:hover:bg-gray-700 rounded">Admin</a>
                     </div>
                 </div>
-                <a href="#" class="block px-4 py-2 hover:bg-blue-100 dark:hover:bg-gray-700 rounded">Pantau Transaksi</a>
-                <a href="#" class="block px-4 py-2 hover:bg-blue-100 dark:hover:bg-gray-700 rounded">Keluhan Nasabah</a>
-                <button onclick="toggleDarkMode()" class="w-full text-left px-4 py-2 hover:bg-blue-100 dark:hover:bg-gray-700 rounded">Toggle Dark Mode</button>
+
+                <!-- Pantau Transaksi -->
+                <a href="{{ route('admin.transactions') }}" class="block px-4 py-2 hover:bg-blue-100 dark:hover:bg-gray-700 rounded">Pantau Transaksi</a>
+
+                <!-- Keluhan Nasabah -->
+                <a href="{{ route('admin.complaints') }}" class="block px-4 py-2 hover:bg-blue-100 dark:hover:bg-gray-700 rounded">Keluhan Nasabah</a>
+
+                <!-- Toggle Dark Mode -->
+               
             </nav>
         </div>
+
+        <!-- Logout -->
         <div class="p-4">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
@@ -39,6 +50,7 @@
         </div>
     </aside>
 
+    <!-- Main Content -->
     <main class="flex-1 p-6">
         @yield('content')
     </main>

@@ -6,6 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     @vite('resources/css/app.css')
+    <script>
+        // Fungsi untuk toggle visibility password
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+    </script>
 </head>
 
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
@@ -24,9 +40,13 @@
                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
             </div>
 
-            <div class="mb-6">
-                <input type="password" name="password" placeholder="Password" required 
+            <div class="mb-6 relative">
+                <input type="password" id="password" name="password" placeholder="Password" required 
                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <button type="button" onclick="togglePasswordVisibility()" 
+                        class="absolute inset-y-0 right-3 flex items-center text-gray-500 focus:outline-none">
+                    <i id="eye-icon" class="fas fa-eye"></i>
+                </button>
             </div>
 
             <button type="submit" 
@@ -35,6 +55,7 @@
             </button>
         </form>
     </div>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
