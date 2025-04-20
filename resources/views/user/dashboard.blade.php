@@ -41,33 +41,33 @@
         <!-- Informasi Tambahan -->
         <div class="flex justify-between items-center mt-6 relative z-10">
             <p class="text-sm">NIS: <span class="font-semibold">{{ $user->nis }}</span></p>
-            <!-- <p class="text-sm">Kelas: <span class="font-semibold">{{ $user->kelas ?? 'N/A' }}</span></p> -->
         </div>
     </div>
 
-    <!-- Navigasi Utama -->
-    <div class="grid grid-cols-4 gap-4 text-center mb-6">
-        <a href="{{ route('user.transactions') }}" class="flex flex-col items-center bg-white text-gray-700 rounded-lg p-4 shadow hover:bg-gray-100">
-            <i class="ph ph-currency-circle-dollar text-2xl"></i>
-            <div class="text-xs mt-1">Transaction</div>
-        </a>
-        <a href="{{ route('user.account') }}" class="flex flex-col items-center bg-white text-gray-700 rounded-lg p-4 shadow hover:bg-gray-100">
-            <i class="ph ph-user text-2xl"></i>
-            <div class="text-xs mt-1">Account</div>
-        </a>
-        <a href="{{ route('user.about') }}" class="flex flex-col items-center bg-white text-gray-700 rounded-lg p-4 shadow hover:bg-gray-100">
-            <i class="ph ph-buildings text-2xl"></i>
-            <div class="text-xs mt-1">About Us</div>
-        </a>
-        <a href="{{ route('logout') }}" class="flex flex-col items-center bg-white text-gray-700 rounded-lg p-4 shadow hover:bg-gray-100"
-           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            <i class="ph ph-sign-out text-2xl"></i>
-            <div class="text-xs mt-1">Logout</div>
-        </a>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-            @csrf
-        </form>
-    </div>
+
+<!-- Navigasi Utama -->
+<div class="grid grid-cols-4 gap-4 text-center mb-6">
+    <a href="{{ route('user.transactions') }}" class="flex flex-col items-center bg-white text-gray-700 rounded-lg p-4 shadow hover:bg-gray-100">
+        <i class="ph ph-currency-circle-dollar text-2xl"></i>
+        <div class="text-xs mt-1">Transaction</div>
+    </a>
+    <a href="{{ route('user.account') }}" class="flex flex-col items-center bg-white text-gray-700 rounded-lg p-4 shadow hover:bg-gray-100">
+        <i class="ph ph-user text-2xl"></i>
+        <div class="text-xs mt-1">Account</div>
+    </a>
+    <a href="{{ route('user.about') }}" class="flex flex-col items-center bg-white text-gray-700 rounded-lg p-4 shadow hover:bg-gray-100">
+        <i class="ph ph-buildings text-2xl"></i>
+        <div class="text-xs mt-1">About Us</div>
+    </a>
+    <a href="{{ route('logout') }}" class="flex flex-col items-center bg-white text-gray-700 rounded-lg p-4 shadow hover:bg-gray-100"
+       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+        <i class="ph ph-sign-out text-2xl"></i>
+        <div class="text-xs mt-1">Logout</div>
+    </a>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+        @csrf
+    </form>
+</div>
 
     <!-- Riwayat Transaksi -->
     <div>
@@ -96,4 +96,42 @@
         </div>
     </div>
 </div>
+
+<!-- Script untuk Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Data untuk Grafik Menabung
+    const savingData = {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], // Ganti dengan data bulan Anda
+        datasets: [{
+            label: 'Saldo Ditabung',
+            data: [50000, 75000, 100000, 125000, 150000, 175000], // Ganti dengan data saldo Anda
+            borderColor: '#4F46E5',
+            backgroundColor: 'rgba(79, 70, 229, 0.2)',
+            tension: 0.4,
+            fill: true,
+        }]
+    };
+
+    // Konfigurasi Grafik Menabung
+    const savingConfig = {
+        type: 'line',
+        data: savingData,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                },
+            },
+        },
+    };
+
+    // Render Grafik Menabung
+    const savingChart = new Chart(
+        document.getElementById('savingChart'),
+        savingConfig
+    );
+</script>
 @endsection

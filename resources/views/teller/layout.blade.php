@@ -6,9 +6,9 @@
     <title>Teller Dashboard</title>
     @vite('resources/css/app.css') <!-- Pastikan Anda menggunakan Vite -->
 </head>
-<body class="flex bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
+<body class="flex flex-col lg:flex-row bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
     <!-- Sidebar -->
-    <aside class="w-64 h-screen bg-white dark:bg-gray-800 shadow-lg flex flex-col justify-between">
+    <aside class="w-full lg:w-64 h-auto lg:h-screen bg-white dark:bg-gray-800 shadow-lg flex flex-col justify-between">
         <div class="p-6">
             <h2 class="text-xl font-bold text-blue-600 dark:text-white mb-8">Bank Mini</h2>
 
@@ -59,7 +59,7 @@
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 p-6">
+    <main class="flex-1 p-4 lg:p-6">
         @yield('content')
     </main>
 </body>

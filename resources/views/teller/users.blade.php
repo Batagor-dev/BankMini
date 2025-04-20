@@ -2,37 +2,41 @@
 
 @section('content')
 <div class="p-6">
-    <h1 class="text-xl font-semibold mb-4">Daftar Semua User</h1>
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">Daftar Semua User</h1>
 
-    <div class="bg-white rounded-lg shadow-lg p-4">
-        <table class="w-full border-collapse">
+    <!-- Tabel User -->
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <table class="w-full text-left border-collapse">
             <thead>
-                <tr class="bg-gray-200">
-                    <th class="p-2 border">Username</th>
-                    <th class="p-2 border">NIS</th>
-                    <th class="p-2 border">Nama</th>
-                    <th class="p-2 border">Saldo</th>
+                <tr class="bg-blue-600 text-white">
+                    <th class="p-4">Username</th>
+                    <th class="p-4">NIS</th>
+                    <th class="p-4">Nama</th>
+                    <th class="p-4">Saldo</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="divide-y divide-gray-200">
                 @forelse ($users as $user)
-                    <tr>
-                        <td class="p-2 border">{{ $user->username }}</td>
-                        <td class="p-2 border">{{ $user->nis }}</td>
-                        <td class="p-2 border">{{ $user->name }}</td>
-                        <td class="p-2 border">Rp {{ number_format($user->saldo, 0, ',', '.') }}</td>
+                    <tr class="hover:bg-gray-100 transition duration-300">
+                        <td class="p-4">{{ $user->username }}</td>
+                        <td class="p-4">{{ $user->nis }}</td>
+                        <td class="p-4">{{ $user->name }}</td>
+                        <td class="p-4 font-semibold text-green-500">
+                            Rp {{ number_format($user->saldo, 0, ',', '.') }}
+                        </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="text-center text-gray-500 p-4">Belum ada user.</td>
+                        <td colspan="4" class="text-center text-gray-500 p-6">Belum ada user.</td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
 
-    <div class="mt-4">
-        {{ $users->links() }}
+    <!-- Pagination -->
+    <div class="mt-6">
+        {{ $users->links('pagination::tailwind') }}
     </div>
 </div>
 @endsection
