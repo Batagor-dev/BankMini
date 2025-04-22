@@ -1,7 +1,7 @@
 @extends('admin.layout')
 
 @section('content')
-<div class="p-4 dark:text-white">
+<div class="p-4 dark:text-white bg-gray-100 dark:bg-gray-800 rounded shadow-lg">
     <h2 class="text-xl font-semibold mb-4">Reset Password</h2>
 
     @if (session('success'))
@@ -24,13 +24,20 @@
         @csrf
         <div>
             <label for="username" class="block mb-1">Username</label>
-            <input type="text" id="username" name="username" placeholder="Masukkan Username" required class="w-full p-2 rounded border">
+            <input type="text" id="username" name="username" placeholder="Masukkan Username" required 
+                class="w-full p-2 rounded border focus:ring-2 focus:ring-blue-500 focus:outline-none">
         </div>
         <div>
             <label for="password" class="block mb-1">Password Baru</label>
-            <input type="password" id="password" name="password" placeholder="Masukkan Password Baru" required class="w-full p-2 rounded border" minlength="6">
+            <input type="password" id="password" name="password" placeholder="Masukkan Password Baru" required 
+                class="w-full p-2 rounded border focus:ring-2 focus:ring-blue-500 focus:outline-none" minlength="6">
         </div>
-        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        <div>
+            <label for="password_confirmation" class="block mb-1">Konfirmasi Password</label>
+            <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Password Baru" required 
+                class="w-full p-2 rounded border focus:ring-2 focus:ring-blue-500 focus:outline-none" minlength="6">
+        </div>
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
             Reset Password
         </button>
     </form>

@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('nis')->nullable();
             $table->string('jurusan')->nullable();
             $table->decimal('saldo', 10, 2)->nullable();
-            $table->string('kelas')->nullable(); 
+            $table->string('kelas')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->enum('role', ['admin', 'teller', 'user'])->default('user');
             $table->timestamps();
         });

@@ -84,6 +84,7 @@ Route::middleware([RoleMiddleware::class . ':teller'])->prefix('teller')->name('
 Route::middleware([RoleMiddleware::class . ':user'])->prefix('user')->name('user.')->group(function () {
     // Dashboard User
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
+  
 
     // Transaksi
     Route::get('/transactions', [UserTransactionController::class, 'index'])->name('transactions'); // Hanya untuk melihat transaksi
