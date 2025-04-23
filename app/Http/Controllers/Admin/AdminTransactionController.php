@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -9,7 +9,8 @@ use App\Exports\TransactionsExport;
 
 class AdminTransactionController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         $date = $request->input('date', now()->toDateString());
 
         $transactions = Transaction::with(['teller', 'user'])
@@ -21,7 +22,7 @@ class AdminTransactionController extends Controller
 
     public function export(Request $request)
     {
-        $date = $request->input('date');
+        $date = $request->query('date'); // Ambil parameter tanggal dari URL
         $fileName = $date ? "transactions_{$date}.xlsx" : 'transactions_full.xlsx';
 
         return Excel::download(new TransactionsExport($date), $fileName);

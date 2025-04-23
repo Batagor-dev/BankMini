@@ -24,6 +24,7 @@ class TransactionsExport implements FromCollection, WithHeadings
             ->get()
             ->map(function ($transaction) {
                 return [
+                    'teller' => $transaction->teller->username,
                     'username' => $transaction->user->username,
                     'nis' => $transaction->user->nis,
                     'description' => $transaction->description,
@@ -35,6 +36,6 @@ class TransactionsExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        return ['Username', 'NIS', 'Deskripsi', 'Jumlah', 'Tanggal'];
+        return ['Teller', 'Username', 'NIS', 'Description', 'Amount', 'Date'];
     }
 }

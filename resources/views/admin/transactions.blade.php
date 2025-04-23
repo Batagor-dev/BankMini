@@ -18,10 +18,10 @@
 
         <!-- Export Form -->
         <form action="{{ route('admin.transactions.export') }}" method="GET" class="flex items-center space-x-2">
-            <input type="date" id="export_date" name="date" value="{{ request('date', now()->toDateString()) }}" 
+            <input type="date" name="date" value="{{ request('date', now()->toDateString()) }}" 
                 class="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none">
             <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition">
-                Export ke Excel
+                Export to Excel
             </button>
         </form>
     </div>
