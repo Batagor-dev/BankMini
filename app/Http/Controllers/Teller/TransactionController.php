@@ -86,19 +86,37 @@ class TransactionController extends Controller
     }
 
     // Halaman Riwayat Transaksi
+// Halaman Riwayat Transaksi
     public function index(Request $request)
     {
+        // Mendapatkan parameter dari request
         $date = $request->input('date');
+        $searchTerm = $request->input('search');
 
-        $transactions = Transaction::with('user')
-            ->when($date, function ($query, $date) {
-                return $query->whereDate('created_at', $date);
-            })
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+        // Mulai dengan query dasar untuk transaksi
+        $query = Transaction::with('user')
+            ->orderBy('created_at', 'desc');
+
+        // Filter berdasarkan tanggal jika ada
+        if ($date) {
+            $query->whereDate('created_at', $date);
+        }
+
+        // Pencarian berdasarkan username atau nis jika ada
+        if ($searchTerm) {
+            $query->whereHas('user', function ($q) use ($searchTerm) {
+                $q->where('username', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('nis', 'like', '%' . $searchTerm . '%');
+            });
+        }
+
+        // Ambil transaksi dengan pagination
+        $transactions = $query->paginate(10);
 
         return view('teller.transactions', compact('transactions'));
     }
+
+
 
     // Hapus Transaksi
     public function destroy($id)

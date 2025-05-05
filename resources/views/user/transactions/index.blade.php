@@ -7,9 +7,8 @@
             <!-- App Header -->
             <div class="flex justify-between items-center mb-8">
                 <div class="flex items-center">
-                    <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3">
-                        <i class="ph ph-piggy-bank text-xl"></i>
-                    </div>
+
+
                     <h1 class="text-xl font-bold">SIMANTAB</h1>
                 </div>
             <a href="{{ route('user.complaints.create') }}"
@@ -67,7 +66,7 @@
                             group-hover:bg-blue-50 transition duration-300 mb-2">
                     <i class="ph ph-house text-2xl text-blue-600"></i>
                 </div>
-                <span class="text-white text-sm font-medium">Dashboard</span>
+                <span class="text-white text-sm font-medium">Home</span>
             </a>
             {{-- <a href="{{ route('user.transactions') }}" class="flex flex-col items-center group">
                 <div class="w-16 h-16 bg-white rounded-xl shadow-lg flex items-center justify-center 

@@ -15,20 +15,33 @@
                 <!-- Dashboard -->
                 <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-blue-100 dark:hover:bg-gray-700 rounded">Dashboard</a>
                 
-                <!-- Manajemen Akun -->
-                <div class="relative group">
-                    <button type="button" class="w-full text-left px-4 py-2 hover:bg-blue-100 dark:hover:bg-gray-700 rounded inline-flex justify-between items-center">
-                        Manajemen Akun
-                        <svg class="w-4 h-4 ml-2 transform group-hover:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </button>
-                    <div class="hidden group-hover:block ml-4 mt-2 space-y-1">
-                        <a href="{{ route('admin.users.index') }}" class="block px-4 py-2 text-sm hover:bg-blue-50 dark:hover:bg-gray-700 rounded">Nasabah</a>
-                        <a href="{{ route('admin.tellers.index') }}" class="block px-4 py-2 text-sm hover:bg-blue-50 dark:hover:bg-gray-700 rounded">Teller</a>
-                        <a href="{{ route('admin.admins.index') }}" class="block px-4 py-2 text-sm hover:bg-blue-50 dark:hover:bg-gray-700 rounded">Admin</a>
-                    </div>
+            <!-- Manajemen Akun -->
+            <div class="relative group">
+                <button type="button" onclick="toggleDropdown()"
+                    class="w-full text-left px-4 py-2 hover:bg-blue-100 dark:hover:bg-gray-700 rounded inline-flex justify-between items-center">
+                    Manajemen Akun
+                    <svg class="w-4 h-4 ml-2 transform group-hover:rotate-180 transition-transform" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div id="dropdown" class="hidden ml-4 mt-2 space-y-1">
+                    <a href="{{ route('admin.users.index') }}"
+                        class="block px-4 py-2 text-sm hover:bg-blue-50 dark:hover:bg-gray-700 rounded">Nasabah</a>
+                    <a href="{{ route('admin.tellers.index') }}"
+                        class="block px-4 py-2 text-sm hover:bg-blue-50 dark:hover:bg-gray-700 rounded">Teller</a>
+                    <a href="{{ route('admin.admins.index') }}"
+                        class="block px-4 py-2 text-sm hover:bg-blue-50 dark:hover:bg-gray-700 rounded">Admin</a>
                 </div>
+            </div>
+            
+            <script>
+                function toggleDropdown() {
+                    const dropdown = document.getElementById('dropdown');
+                    dropdown.classList.toggle('hidden'); // Toggle the 'hidden' class
+                }
+            </script>
+
 
                 <!-- Pantau Transaksi -->
                 <a href="{{ route('admin.transactions') }}" class="block px-4 py-2 hover:bg-blue-100 dark:hover:bg-gray-700 rounded">Pantau Transaksi</a>
