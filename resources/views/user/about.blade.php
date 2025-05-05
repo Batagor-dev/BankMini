@@ -27,7 +27,7 @@
         <div class="w-screen h-full flex-shrink-0 flex flex-col justify-center p-6 bg-gradient-to-br from-blue-50 to-blue-100">
             <div class="bg-white rounded-xl shadow-lg p-8 max-w-4xl mx-auto">
                 <div class="flex flex-col md:flex-row items-center gap-8">
-                    <img src="{{ asset('storage/img/bppi.png') }}" class="w-32 h-32 object-contain">
+                    <img src="{{ asset('images/bppi.png') }}" class="w-32 h-32 object-contain">
                     <div>
                         <h2 class="text-2xl font-bold text-gray-800 mb-4">Tentang SMK BPPI Baleendah</h2>
                         <p class="text-gray-600 text-justify">
@@ -42,7 +42,7 @@
         <div class="w-screen h-full flex-shrink-0 flex flex-col justify-center p-6 bg-gradient-to-br from-green-50 to-green-100">
             <div class="bg-white rounded-xl shadow-lg p-8 max-w-4xl mx-auto">
                 <div class="flex flex-col md:flex-row items-center gap-8">
-                <img src="{{ asset('storage/img/bank.png') }}" alt="Logo Bank Mini" class="w-32 h-32 object-contain">
+                    <img src="{{ asset('images/bank.png') }}" alt="Logo Bank Mini" class="w-32 h-32 object-contain">
                     <div>
                         <h2 class="text-2xl font-bold text-gray-800 mb-4">Tentang Bank Mini</h2>
                         <p class="text-gray-600 text-justify">
@@ -57,7 +57,7 @@
         <div class="w-screen h-full flex-shrink-0 flex flex-col justify-center p-6 bg-gradient-to-br from-purple-50 to-purple-100">
             <div class="bg-white rounded-xl shadow-lg p-8 max-w-4xl mx-auto">
                 <div class="flex flex-col md:flex-row items-center gap-8">
-                <img src="{{ asset('storage/img/pplg.png') }}" alt="Logo Studio Pengembang" class="w-32 h-32 object-contain">
+                    <img src="{{ asset('images/pplg.png') }}" alt="Logo Studio Pengembang" class="w-32 h-32 object-contain">
                     <div>
                         <h2 class="text-2xl font-bold text-gray-800 mb-4">Tentang Studio Pengembang</h2>
                         <p class="text-gray-600 text-justify">
@@ -72,7 +72,7 @@
         <div class="w-screen h-full flex-shrink-0 flex flex-col justify-center p-6 bg-gradient-to-br from-yellow-50 to-yellow-100">
             <div class="bg-white rounded-xl shadow-lg p-8 max-w-4xl mx-auto">
                 <div class="flex flex-col md:flex-row items-center gap-8">
-                <img src="{{ asset('storage/img/unit.png') }}" alt="Logo Unit Produksi" class="w-32 h-32 object-contain">
+                    <img src="{{ asset('images/unit.png') }}" alt="Logo Unit Produksi" class="w-32 h-32 object-contain">
                     <div>
                         <h2 class="text-2xl font-bold text-gray-800 mb-4">Tentang Unit Produksi</h2>
                         <p class="text-gray-600 text-justify">
@@ -118,18 +118,14 @@
         </div>
     </div>
 
-    <!-- Navigation Dots - Dipindahkan ke bawah -->
+    <!-- Navigation Dots -->
     <div class="flex justify-center pb-6 space-x-2 z-10">
-        <button onclick="scrollToSlide(0)" class="w-3 h-3 rounded-full bg-white border border-gray-400 focus:outline-none dot" data-slide="0"></button>
-        <button onclick="scrollToSlide(1)" class="w-3 h-3 rounded-full bg-white border border-gray-400 focus:outline-none dot" data-slide="1"></button>
-        <button onclick="scrollToSlide(2)" class="w-3 h-3 rounded-full bg-white border border-gray-400 focus:outline-none dot" data-slide="2"></button>
-        <button onclick="scrollToSlide(3)" class="w-3 h-3 rounded-full bg-white border border-gray-400 focus:outline-none dot" data-slide="3"></button>
-        <button onclick="scrollToSlide(4)" class="w-3 h-3 rounded-full bg-white border border-gray-400 focus:outline-none dot" data-slide="4"></button>
-        <button onclick="scrollToSlide(5)" class="w-3 h-3 rounded-full bg-white border border-gray-400 focus:outline-none dot" data-slide="5"></button>
-        <button onclick="scrollToSlide(6)" class="w-3 h-3 rounded-full bg-white border border-gray-400 focus:outline-none dot" data-slide="6"></button>
+        @for ($i = 0; $i < 7; $i++)
+            <button onclick="scrollToSlide({{ $i }})" class="w-3 h-3 rounded-full bg-white border border-gray-400 focus:outline-none dot" data-slide="{{ $i }}"></button>
+        @endfor
     </div>
 
-    <!-- Navigation Arrows - Hanya tampil di desktop -->
+    <!-- Navigation Arrows -->
     <button onclick="prevSlide()" class="hidden md:block fixed left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 text-gray-800 p-3 rounded-full shadow-lg hover:bg-opacity-100 transition z-10">
         <i class="fas fa-chevron-left"></i>
     </button>
@@ -138,6 +134,7 @@
     </button>
 </div>
 
+<!-- Script Carousel -->
 <script>
     let currentSlide = 0;
     const totalSlides = document.querySelectorAll('#carousel > div').length;
@@ -146,8 +143,6 @@
 
     function updateCarousel() {
         carousel.style.transform = `translateX(-${currentSlide * 100}vw)`;
-        
-        // Update active dot
         dots.forEach((dot, index) => {
             if (index === currentSlide) {
                 dot.classList.add('bg-blue-500', 'border-blue-500');
@@ -159,8 +154,8 @@
         });
     }
 
-    function scrollToSlide(slideIndex) {
-        currentSlide = slideIndex;
+    function scrollToSlide(index) {
+        currentSlide = index;
         updateCarousel();
     }
 
@@ -180,73 +175,54 @@
 
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight') {
-            nextSlide();
-        } else if (e.key === 'ArrowLeft') {
-            prevSlide();
-        }
+        if (e.key === 'ArrowRight') nextSlide();
+        if (e.key === 'ArrowLeft') prevSlide();
     });
 
-    // Touch swipe support
+    // Swipe support
     let touchStartX = 0;
     let touchEndX = 0;
 
-    carousel.addEventListener('touchstart', (e) => {
+    carousel.addEventListener('touchstart', e => {
         touchStartX = e.changedTouches[0].screenX;
     }, {passive: true});
 
-    carousel.addEventListener('touchend', (e) => {
+    carousel.addEventListener('touchend', e => {
         touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
+        if (touchEndX < touchStartX - 50) nextSlide();
+        if (touchEndX > touchStartX + 50) prevSlide();
     }, {passive: true});
 
-    function handleSwipe() {
-        if (touchEndX < touchStartX - 50) {
-            nextSlide();
-        } else if (touchEndX > touchStartX + 50) {
-            prevSlide();
-        }
-    }
-
-    // Initialize
     updateCarousel();
 </script>
 
+<!-- Style -->
 <style>
-    /* Pastikan tidak ada overflow yang tidak diinginkan */
     html, body {
         margin: 0;
         padding: 0;
         overflow-x: hidden;
         height: 100%;
     }
-    
     .dot {
         transition: all 0.3s ease;
     }
-    
     #carousel {
         display: flex;
         width: calc(100vw * 7);
     }
-    
     #carousel > div {
         width: 100vw;
         flex-shrink: 0;
-        height: calc(100vh - 60px); /* Sesuaikan dengan tinggi dots */
+        height: calc(100vh - 60px);
     }
-    
-    /* Pastikan iframe responsif */
     iframe {
         min-height: 300px;
     }
-
-    /* Tambahkan padding untuk konten di mobile */
     @media (max-width: 768px) {
         #carousel > div {
             padding-bottom: 40px;
         }
     }
 </style>
-
 @endsection
