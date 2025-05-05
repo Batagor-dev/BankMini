@@ -74,9 +74,10 @@
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
                             <div class="relative">
-                                <input type="text" id="name" name="name"
-                                    value="{{ old('name', auth()->user()->name ?? '') }}" required
-                                    class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
+                            <input type="text" id="name" name="name"
+    value="{{ old('name', auth()->user()->name ?? '') }}" required
+    class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black transition-all">
+
                                 <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                                     <i class="ph ph-user text-gray-400"></i>
                                 </div>
@@ -98,17 +99,17 @@
 
                         <!-- Message -->
                         <div>
-                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Complaint
-                                Details</label>
-                            <div class="relative">
-                                <textarea id="message" name="message" rows="5" required
-                                    class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                                    placeholder="Describe your complaint or issue in detail...">{{ old('message') }}</textarea>
-                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none top-3">
-                                    <i class="ph ph-chat-teardrop-text text-gray-400"></i>
-                                </div>
-                            </div>
-                        </div>
+    <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Complaint Details</label>
+    <div class="relative">
+        <textarea id="message" name="message" rows="5" required
+            class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black transition-all"
+            placeholder="Describe your complaint or issue in detail...">{{ old('message') }}</textarea>
+        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none top-3">
+            <i class="ph ph-chat-teardrop-text text-gray-400"></i>
+        </div>
+    </div>
+</div>
+
 
                         <!-- Submit Button -->
                         <button type="submit"

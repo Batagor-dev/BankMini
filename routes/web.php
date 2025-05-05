@@ -19,7 +19,7 @@ use App\Http\Middleware\RoleMiddleware;
 
 // Route untuk halaman utama
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 // Route untuk login
