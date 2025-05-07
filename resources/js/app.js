@@ -1,3 +1,3 @@
-import 'swiper/swiper-bundle.min.css';
+import 'swiper/css';
 import Swiper from 'swiper';
 import './bootstrap';

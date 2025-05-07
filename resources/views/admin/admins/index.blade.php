@@ -123,13 +123,12 @@
             }, 300);
         }
 
-        // Handle form submission
+      // Handle form submission
         document.getElementById('resetPasswordForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
             const formData = new FormData(this);
-            const role = formData.get('role');
-            const actionUrl = `/admin/reset-password/${role}`;
+            const actionUrl = `/admin/reset-password`; // <== INI FIX-NYA
 
             fetch(actionUrl, {
                 method: 'POST',
@@ -144,7 +143,6 @@
                     if (data.success) {
                         alert('Password berhasil direset');
                         closeModal();
-                        // You can add a success notification here
                     } else {
                         alert('Terjadi kesalahan: ' + (data.message || 'Gagal reset password'));
                     }
@@ -154,5 +152,6 @@
                     alert('Terjadi kesalahan saat mengirim data');
                 });
         });
+
     </script>
 @endsection
