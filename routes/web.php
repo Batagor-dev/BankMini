@@ -43,8 +43,9 @@ Route::middleware([RoleMiddleware::class . ':admin'])->prefix('admin')->name('ad
 
     // Manajemen admin
     Route::resource('admins', AdminController::class)->except(['create', 'store', 'destroy']);
-   
-    Route::post('/admin/reset-password', [AdminController::class, 'resetPassword'])->name('admin.resetPassword');
+    // Route reset password (Admin area)
+    Route::post('/reset-password', [AdminController::class, 'resetPassword'])->name('reset.password');
+
 
 
     // Transaksi

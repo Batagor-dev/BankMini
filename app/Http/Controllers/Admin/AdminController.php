@@ -46,9 +46,7 @@ class AdminController extends Controller
     /**
      * Menampilkan form reset password untuk user atau teller.
      */
-    public function resetPasswordForm() {
-        return view('admin.admins.reset-password');
-    }
+
 
     /**
      * Mereset password user atau teller.

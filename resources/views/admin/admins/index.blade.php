@@ -4,27 +4,34 @@
     <div class="p-6 bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 rounded-lg shadow-lg">
         <h2 class="text-2xl font-bold text-blue-600 mb-6">Manajemen Admin</h2>
 
-        <!-- Notifikasi Sukses -->
+        {{-- Notifikasi --}}
         @if (session('success'))
             <div class="bg-green-100 text-green-700 p-4 rounded-lg shadow mb-4">
                 {{ session('success') }}
             </div>
         @endif
 
+        @if ($errors->any())
+            <div class="bg-red-100 text-red-700 p-4 rounded-lg shadow mb-4">
+                <ul class="list-disc list-inside">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <!-- Tombol Reset Password -->
         <div class="mb-6 flex flex-wrap gap-4">
             <button onclick="openModal('admin')"
-                class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
-                Reset Password Admin
-            </button>
+                class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">Reset Password
+                Admin</button>
             <button onclick="openModal('user')"
-                class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition">
-                Reset Password User
-            </button>
+                class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition">Reset Password
+                User</button>
             <button onclick="openModal('teller')"
-                class="px-4 py-2 bg-yellow-600 text-white rounded-lg shadow hover:bg-yellow-700 transition">
-                Reset Password Teller
-            </button>
+                class="px-4 py-2 bg-yellow-600 text-white rounded-lg shadow hover:bg-yellow-700 transition">Reset Password
+                Teller</button>
         </div>
 
         <!-- Tabel Admin -->
@@ -56,16 +63,16 @@
         </div>
     </div>
 
-    <!-- Improved Transparent Modal -->
+    <!-- Modal Reset Password -->
     <div id="resetPasswordModal"
-        class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center hidden z-50 transition-opacity duration-300">
+        class="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center hidden z-50">
         <div onclick="closeModal()" class="absolute inset-0"></div>
 
         <div
-            class="relative bg-white/80 dark:bg-gray-800/80 p-6 rounded-xl shadow-2xl w-full max-w-md z-10 border border-white/20 dark:border-gray-600/30 backdrop-blur-lg transition-all duration-300 transform">
+            class="relative bg-white/80 dark:bg-gray-800/80 p-6 rounded-xl shadow-2xl w-full max-w-md z-10 border border-white/20 dark:border-gray-600/30 backdrop-blur-lg">
             <h2 id="modalTitle" class="text-xl font-bold mb-4 text-gray-800 dark:text-white">Reset Password</h2>
 
-            <form id="resetPasswordForm" action="" method="POST">
+            <form action="{{ route('admin.reset.password') }}" method="POST">
                 @csrf
                 <input type="hidden" id="role" name="role">
 
@@ -80,19 +87,15 @@
                     <label for="password" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Password
                         Baru</label>
                     <input type="password" id="password" name="password" placeholder="Masukkan Password Baru" required
-                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white/90 dark:bg-gray-700/90"
-                        minlength="6">
+                        minlength="6"
+                        class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white/90 dark:bg-gray-700/90">
                 </div>
 
                 <div class="flex justify-end space-x-2">
                     <button type="button" onclick="closeModal()"
-                        class="px-4 py-2 bg-gray-500/90 hover:bg-gray-600/90 text-white rounded-lg shadow transition">
-                        Batal
-                    </button>
+                        class="px-4 py-2 bg-gray-500/90 hover:bg-gray-600/90 text-white rounded-lg shadow transition">Batal</button>
                     <button type="submit"
-                        class="px-4 py-2 bg-blue-600/90 hover:bg-blue-700/90 text-white rounded-lg shadow transition">
-                        Reset
-                    </button>
+                        class="px-4 py-2 bg-blue-600/90 hover:bg-blue-700/90 text-white rounded-lg shadow transition">Reset</button>
                 </div>
             </form>
         </div>
@@ -104,54 +107,15 @@
             const title = document.getElementById('modalTitle');
             const roleInput = document.getElementById('role');
 
-            // Set role dan judul modal
             roleInput.value = role;
             title.textContent = `Reset Password ${role.charAt(0).toUpperCase() + role.slice(1)}`;
 
-            // Tampilkan modal dengan animasi
             modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.style.opacity = '1';
-            }, 10);
         }
 
         function closeModal() {
             const modal = document.getElementById('resetPasswordModal');
-            modal.style.opacity = '0';
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
+            modal.classList.add('hidden');
         }
-
-      // Handle form submission
-        document.getElementById('resetPasswordForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const formData = new FormData(this);
-            const actionUrl = `/admin/reset-password`; // <== INI FIX-NYA
-
-            fetch(actionUrl, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json'
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Password berhasil direset');
-                        closeModal();
-                    } else {
-                        alert('Terjadi kesalahan: ' + (data.message || 'Gagal reset password'));
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Terjadi kesalahan saat mengirim data');
-                });
-        });
-
     </script>
 @endsection
