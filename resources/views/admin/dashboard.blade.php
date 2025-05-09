@@ -6,9 +6,7 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-blue-600">Dashboard Admin</h1>
-        <div class="flex items-center space-x-4">
-            <input type="text" placeholder="Search Project" class="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
+
     </div>
 
     <!-- Cards -->

@@ -4,27 +4,42 @@
 <div class="p-6 bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 rounded-lg shadow-lg">
     <h1 class="text-2xl font-bold text-blue-600 mb-6">Riwayat Transaksi Teller</h1>
 
-    <!-- Filter Tanggal dan Export -->
-    <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
-        <!-- Filter Form -->
-        <form action="{{ route('admin.transactions') }}" method="GET" class="flex items-center space-x-2">
-            <label for="date" class="text-sm font-medium text-gray-700 dark:text-gray-300">Tanggal:</label>
-            <input type="date" id="date" name="date" value="{{ request('date', now()->toDateString()) }}" 
-                class="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
-                Filter
-            </button>
-        </form>
-
-        <!-- Export Form -->
-        <form action="{{ route('admin.transactions.export') }}" method="GET" class="flex items-center space-x-2">
-            <input type="date" name="date" value="{{ request('date', now()->toDateString()) }}" 
-                class="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none">
-            <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition">
-                Export to Excel
-            </button>
-        </form>
+    <!-- Search Form (Lebar Penuh di Atas) -->
+<form action="{{ route('admin.transactions') }}" method="GET" class="mb-6">
+    <label for="search" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Pencarian:</label>
+    <div class="flex">
+        <input type="text" id="search" name="search" value="{{ request('search') }}"
+            placeholder="Cari nama, username, kelas, jurusan"
+            class="flex-1 px-4 py-2 rounded-l-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-r-lg shadow hover:bg-blue-700 transition">
+            Cari
+        </button>
+        
     </div>
+</form>
+
+<!-- Filter Tanggal dan Export (Dibawah Search) -->
+<div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+    <!-- Filter Form -->
+    <form action="{{ route('admin.transactions') }}" method="GET" class="flex items-center space-x-2">
+        <label for="date" class="text-sm font-medium text-gray-700 dark:text-gray-300">Tanggal:</label>
+        <input type="date" id="date" name="date" value="{{ request('date', now()->toDateString()) }}" 
+            class="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
+            Filter
+        </button>
+    </form>
+
+    <!-- Export Form -->
+    <form action="{{ route('admin.transactions.export') }}" method="GET" class="flex items-center space-x-2">
+        <input type="date" name="date" value="{{ request('date', now()->toDateString()) }}" 
+            class="px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none">
+        <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition">
+            Export to Excel
+        </button>
+    </form>
+</div>
+
 
     <!-- Tabel Transaksi -->
     <div class="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg">

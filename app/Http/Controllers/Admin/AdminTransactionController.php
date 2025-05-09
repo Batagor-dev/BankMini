@@ -9,16 +9,32 @@ use App\Exports\TransactionsExport;
 
 class AdminTransactionController extends Controller
 {
-    public function index(Request $request)
-    {
-        $date = $request->input('date', now()->toDateString());
+public function index(Request $request)
+{
+    $query = Transaction::with(['teller', 'user']);
 
-        $transactions = Transaction::with(['teller', 'user'])
-            ->whereDate('created_at', $date)
-            ->paginate(10); // Menampilkan 10 transaksi per halaman
-
-        return view('admin.transactions', compact('transactions'));
+    if ($request->filled('date')) {
+        $query->whereDate('created_at', $request->date);
     }
+
+    if ($request->filled('search')) {
+        $search = $request->search;
+        $query->whereHas('user', function ($q) use ($search) {
+            $q->where('username', 'like', "%{$search}%")
+              ->orWhere('nis', 'like', "%{$search}%")
+              ->orWhere('kelas', 'like', "%{$search}%")
+              ->orWhere('jurusan', 'like', "%{$search}%")
+              ->orWhere('name', 'like', "%{$search}%");  // nama user
+        })->orWhereHas('teller', function ($q) use ($search) {
+            $q->where('name', 'like', "%{$search}%");  // nama teller
+        })->orWhere('description', 'like', "%{$search}%");
+    }
+
+    $transactions = $query->latest()->paginate(10);
+
+    return view('admin.transactions', compact('transactions'));
+}
+
 
     public function export(Request $request)
     {

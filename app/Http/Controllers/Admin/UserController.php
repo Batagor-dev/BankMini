@@ -12,19 +12,21 @@ class UserController extends Controller
     /**
      * Menampilkan daftar user.
      */
-    public function index(Request $request) {
+public function index(Request $request) {
         $search = $request->input('search');
 
-        // Filter berdasarkan nama, username, dan role user
         $users = User::where('role', 'user')
                      ->where(function ($query) use ($search) {
                          $query->where('name', 'like', "%{$search}%")
-                               ->orWhere('username', 'like', "%{$search}%");
+                               ->orWhere('username', 'like', "%{$search}%")
+                               ->orWhere('jurusan', 'like', "%{$search}%")
+                               ->orWhere('kelas', 'like', "%{$search}%");
                      })
-                     ->paginate(10); // Menambahkan pagination dengan 10 item per halaman
+                     ->paginate(10);
 
         return view('admin.users.index', compact('users'));
     }
+
 
     /**
      * Menampilkan form untuk menambahkan user baru.
