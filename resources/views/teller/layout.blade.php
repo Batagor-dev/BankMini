@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teller Dashboard</title>
-    @vite('resources/css/app.css') <!-- Pastikan Anda menggunakan Vite -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="flex flex-col lg:flex-row bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
+
     <!-- Sidebar -->
-    <aside class="w-full lg:w-64 h-auto lg:h-screen bg-white dark:bg-gray-800 shadow-lg flex flex-col justify-between">
+    <aside class="w-full lg:w-64 bg-white dark:bg-gray-800 shadow-lg flex flex-col justify-between min-h-screen overflow-y-auto">
         <div class="p-6">
-            <h2 class="text-xl font-bold text-blue-600 dark:text-white mb-8">Bank Mini</h2>
+                           <div class="flex items-center justify-between mb-8">
+    <h2 class="text-xl font-bold text-blue-600 dark:text-white">Bank Mini</h2>
+     <img src="{{ asset('images/logobppi.png') }}"alt="Logo Bank Mini" class="h-10 w-auto ml-4">
+</div>
 
             <!-- Identitas Teller -->
             <div class="mb-6 p-4 bg-blue-50 dark:bg-gray-700 rounded shadow">
@@ -47,7 +52,7 @@
             </nav>
         </div>
 
-        <!-- Logout -->
+       
         <div class="p-4">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

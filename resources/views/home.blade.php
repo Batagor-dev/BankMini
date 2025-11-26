@@ -40,11 +40,10 @@
     <div class="container mx-auto flex justify-between items-center py-4 px-6">
 <!-- Logo -->
 <div class="flex items-center">
-  <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center mr-3">
-    <i class="fas fa-landmark text-white"></i>
-  </div>
+  <img src="{{ asset('images/logobppi.png') }}" alt="Logo BPPI" class="w-10 h-10 mr-3 object-contain">
   <h1 class="text-2xl font-bold text-blue-700">Bank Mini</h1>
 </div>
+
 
 <!-- Desktop Navigation -->
 <nav class="hidden md:flex space-x-6 items-center text-center md:text-left">

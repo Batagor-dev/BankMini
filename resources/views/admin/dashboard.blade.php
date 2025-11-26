@@ -14,22 +14,20 @@
         <div class="bg-gradient-to-br from-purple-500 to-purple-700 text-white p-6 rounded-lg shadow-lg">
             <h3 class="text-sm font-medium">Total Saldo Harian</h3>
             <p class="text-2xl font-bold mt-2">Rp {{ number_format($dailyBalance, 0, ',', '.') }}</p>
-            <p class="text-sm mt-1">Increased by 50%</p>
+            
         </div>
         <div class="bg-gradient-to-br from-blue-500 to-blue-700 text-white p-6 rounded-lg shadow-lg">
             <h3 class="text-sm font-medium">Total Saldo Keseluruhan</h3>
             <p class="text-2xl font-bold mt-2">Rp {{ number_format($totalBalance, 0, ',', '.') }}</p>
-            <p class="text-sm mt-1">Increased by 50%</p>
+           
         </div>
         <div class="bg-gradient-to-br from-orange-500 to-orange-700 text-white p-6 rounded-lg shadow-lg">
             <h3 class="text-sm font-medium">Akun Aktif</h3>
             <p class="text-2xl font-bold mt-2">{{ $activeAccounts }} akun aktif</p>
-            <p class="text-sm mt-1">Increased by 30%</p>
         </div>
         <div class="bg-gradient-to-br from-pink-500 to-pink-700 text-white p-6 rounded-lg shadow-lg">
             <h3 class="text-sm font-medium">Teller Aktif</h3>
             <p class="text-2xl font-bold mt-2">{{ $activeTellers }} teller</p>
-            <p class="text-sm mt-1">Increased by 20%</p>
         </div>
     </div>
 

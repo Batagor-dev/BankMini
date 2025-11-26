@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Layout</title>
-    @vite('resources/css/app.css')
+   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
 
@@ -12,7 +12,11 @@
         <!-- Sidebar -->
         <aside class="w-64 bg-white dark:bg-gray-800 shadow-lg flex flex-col justify-between">
             <div class="p-6">
-                <h2 class="text-xl font-bold text-blue-600 dark:text-white mb-8">Bank Mini</h2>
+                <div class="flex items-center justify-between mb-8">
+    <h2 class="text-xl font-bold text-blue-600 dark:text-white">Bank Mini</h2>
+     <img src="{{ asset('images/logobppi.png') }}"alt="Logo Bank Mini" class="h-10 w-auto ml-4">
+</div>
+
                 <nav class="space-y-2">
                     <!-- Dashboard -->
                     <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 hover:bg-blue-100 dark:hover:bg-gray-700 rounded">Dashboard</a>

@@ -106,7 +106,8 @@ class TransactionController extends Controller
         if ($searchTerm) {
             $query->whereHas('user', function ($q) use ($searchTerm) {
                 $q->where('username', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('nis', 'like', '%' . $searchTerm . '%');
+                    ->orWhere('nis', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('name', 'like', '%' . $searchTerm . '%');
             });
         }
 
@@ -122,10 +123,18 @@ class TransactionController extends Controller
     public function destroy($id)
     {
         $transaction = Transaction::findOrFail($id);
+        $user = $transaction->user;
+    
+        // Kurangi saldo user sesuai transaksi
+        $user->saldo -= $transaction->amount;
+        $user->save();
+    
+        // Hapus transaksi
         $transaction->delete();
-
-        return redirect()->route('teller.transactions')->with('success', 'Transaksi berhasil dihapus.');
+    
+        return redirect()->route('teller.transactions')->with('success', 'Transaksi berhasil dihapus dan saldo dikurangi.');
     }
+    
 
     // Export Transaksi ke Excel
     public function export(Request $request)
@@ -135,4 +144,6 @@ class TransactionController extends Controller
 
         return Excel::download(new TransactionsExport($date), $fileName);
     }
+
+    
 }

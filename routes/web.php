@@ -1,5 +1,5 @@
 <?php
-
+// BAHAN REVISIAN
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\UserController;
@@ -16,6 +16,7 @@ use App\Http\Controllers\User\ComplaintController;
 use App\Http\Controllers\Teller\DashboardController as TellerDashboardController;
 use App\Http\Controllers\Teller\TransactionController as TellerTransactionController;
 use App\Http\Middleware\RoleMiddleware;
+use App\Http\Controllers\Auth\LoginController;
 
 // Route untuk halaman utama
 Route::get('/', function () {
@@ -23,6 +24,8 @@ Route::get('/', function () {
 });
 
 // Route untuk login
+Route::post('/login', [LoginController::class, 'login'])
+    ->middleware('throttle:5,1'); 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -103,4 +106,3 @@ Route::middleware([RoleMiddleware::class . ':user'])->prefix('user')->name('user
     Route::get('/complaints/create', [ComplaintController::class, 'create'])->name('complaints.create');
     Route::post('/complaints', [ComplaintController::class, 'store'])->name('complaints.store');
 });
-

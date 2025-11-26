@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction;
 use App\Models\User;
+use Illuminate\Http\Request;
+
 
 class DashboardController extends Controller
 {
@@ -24,11 +26,25 @@ class DashboardController extends Controller
         return view('teller.dashboard', compact('teller', 'totalSaldo', 'dailySaldo', 'transactions'));
     }
 
-    public function users()
+    public function users(Request $request)
     {
-        // Ambil hanya user dengan role 'user'
-        $users = User::where('role', 'user')->paginate(10);
+        // Ambil query pencarian dari input
+        $search = $request->input('search');
 
-        return view('teller.users', compact('users'));
+        // Ambil user dengan role 'user' dan filter jika ada pencarian
+        $users = User::where('role', 'user')
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('username', 'like', "%{$search}%");
+                });
+            })
+            ->paginate(10);
+
+        // Kirim juga nilai search agar tetap muncul di input saat paginasi
+        $users->appends(['search' => $search]);
+
+        return view('teller.users', compact('users', 'search'));
     }
+
 }

@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Bank Mini SMK BPPI</title>
-    @vite('resources/css/app.css')
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/bold/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -33,14 +32,15 @@
 <body class="min-h-screen bank-bg flex items-center justify-center p-4">
     <div class="w-full max-w-md">
         <!-- Header Logo -->
-        <div class="text-center mb-6">
-            <div class="flex items-center justify-center mb-2">
-                <div class="w-12 h-12 bg-blue-800 rounded-full flex items-center justify-center">
-                    <i class="fas fa-landmark text-white text-xl"></i>
-                </div>
-            </div>
-            <h1 class="text-2xl font-bold text-blue-900">Bank Mini <span class="text-blue-600 font-normal">SMK BPPI</span></h1>
-        </div>
+<!-- Header Logo -->
+<div class="text-center mb-6">
+    <div class="flex items-center justify-center mb-2">
+        <img src="{{ asset('images/logobppi.png') }}" alt="Logo BPPI" class="w-12 h-12 object-contain">
+    </div>
+    <h1 class="text-2xl font-bold text-blue-900">
+        Bank Mini <span class="text-blue-600 font-normal">SMK BPPI</span>
+    </h1>
+</div>
 
         <!-- Login Form Container -->
         <div class="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100">

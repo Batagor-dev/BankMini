@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Dashboard</title>
-    @vite('resources/css/app.css') <!-- Pastikan Anda menggunakan Vite untuk CSS -->
+    <script src="https://cdn.tailwindcss.com"></script><!-- Pastikan Anda menggunakan Vite untuk CSS -->
     <script src="https://unpkg.com/phosphor-icons"></script>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">

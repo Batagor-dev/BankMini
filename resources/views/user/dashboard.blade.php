@@ -6,9 +6,10 @@
     <!-- Professional Header Section -->
     <div class="flex justify-between items-center mb-8">
         <div>
-            <p class="text-sm font-medium text-gray-500 mb-1">Good
-                {{ \Carbon\Carbon::now()->format('H') < 12 ? 'Morning' : (\Carbon\Carbon::now()->format('H') < 17 ? 'Afternoon' : 'Evening') }}
-            </p>
+            <p class="text-sm font-medium text-gray-500 mb-1">
+    {{ \Carbon\Carbon::now()->translatedFormat('l') }}
+</p>
+
             <h1 class="text-2xl font-bold text-gray-800">
                 <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                     {{ $user->name }}

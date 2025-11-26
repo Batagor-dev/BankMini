@@ -38,19 +38,19 @@
         </div>
 
         <div>
-            <label for="nis" class="block text-sm font-medium mb-2">NIS (Opsional)</label>
+            <label for="nis" class="block text-sm font-medium mb-2">NIS</label>
             <input type="text" id="nis" name="nis" value="{{ $user->nis }}" placeholder="Nomor Induk Siswa" 
                 class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none">
         </div>
 
         <div>
-            <label for="jurusan" class="block text-sm font-medium mb-2">Jurusan (Opsional)</label>
+            <label for="jurusan" class="block text-sm font-medium mb-2">Jurusan</label>
             <input type="text" id="jurusan" name="jurusan" value="{{ $user->jurusan }}" placeholder="Jurusan" 
                 class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none">
         </div>
 
         <div>
-            <label for="kelas" class="block text-sm font-medium mb-2">Kelas (Opsional)</label>
+            <label for="kelas" class="block text-sm font-medium mb-2">Kelas</label>
             <input type="text" id="kelas" name="kelas" value="{{ $user->kelas }}" placeholder="Kelas" 
                 class="w-full p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none">
         </div>

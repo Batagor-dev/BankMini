@@ -47,6 +47,7 @@
             <thead class="bg-blue-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
                 <tr>
                     <th class="px-6 py-3 font-semibold">Teller</th>
+                    <th class="px-6 py-3 font-semibold">Nama</th>
                     <th class="px-6 py-3 font-semibold">Username</th>
                     <th class="px-6 py-3 font-semibold">NIS</th>
                     <th class="px-6 py-3 font-semibold">Deskripsi</th>
@@ -58,6 +59,7 @@
                 @forelse ($transactions as $transaction)
                 <tr class="hover:bg-blue-50 dark:hover:bg-gray-700 transition">
                     <td class="px-6 py-4">{{ $transaction->teller->name ?? 'N/A' }}</td>
+                    <td class="px-6 py-4">{{ $transaction->user->name ?? 'N/A' }}</td>
                     <td class="px-6 py-4">{{ $transaction->user->username ?? 'N/A' }}</td>
                     <td class="px-6 py-4">{{ $transaction->user->nis ?? 'N/A' }}</td>
                     <td class="px-6 py-4">{{ $transaction->description }}</td>

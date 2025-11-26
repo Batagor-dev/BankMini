@@ -17,32 +17,42 @@ class TellerTransactionController extends Controller
 
     // Proses Debit
     public function storeDebit(Request $request)
-    {
-        $request->validate([
-            'username' => 'required|exists:users,username',
-            'nis' => 'required|exists:users,nis',
-            'amount' => 'required|numeric|min:1',
-            'description' => 'required|string|max:255',
-        ]);
+{
+    $request->validate([
+        'username' => 'required|exists:users,username',
+        'nis' => 'required|exists:users,nis',
+        'amount' => 'required|string', // gunakan string karena input ribuan
+        'description' => 'required|string|max:255',
+    ]);
 
-        $user = User::where('username', $request->username)
-            ->where('nis', $request->nis)
-            ->firstOrFail();
+    // Bersihkan format angka (misal: 1.000.000 → 1000000)
+    $amount = (int) str_replace('.', '', $request->amount);
 
-        // Tambahkan saldo ke user
-        $user->saldo += $request->amount;
-        $user->save();
-
-        // Simpan transaksi
-        Transaction::create([
-            'user_id' => $user->id,
-            'teller_id' => auth()->id(), // ID teller yang sedang login
-            'description' => $request->description,
-            'amount' => $request->amount,
-        ]);
-
-        return redirect()->route('teller.debit')->with('success', 'Saldo berhasil ditambahkan.');
+    // Validasi minimal 1 setelah di-convert
+    if ($amount < 1) {
+        return back()->withErrors(['amount' => 'Jumlah saldo minimal Rp1.']);
     }
+
+    // Cari user berdasarkan username dan NIS
+    $user = User::where('username', $request->username)
+                ->where('nis', $request->nis)
+                ->firstOrFail();
+
+    // Tambahkan saldo
+    $user->saldo += $amount;
+    $user->save();
+
+    // Simpan transaksi
+    Transaction::create([
+        'user_id'     => $user->id,
+        'teller_id'   => auth()->id(),
+        'description' => $request->description,
+        'amount'      => $amount,
+    ]);
+
+    return redirect()->route('teller.debit')->with('success', 'Saldo berhasil ditambahkan.');
+}
+    
 
     // Halaman Kredit
     public function credit()
@@ -52,36 +62,43 @@ class TellerTransactionController extends Controller
 
     // Proses Kredit
     public function storeCredit(Request $request)
-    {
-        $request->validate([
-            'username' => 'required|exists:users,username',
-            'nis' => 'required|exists:users,nis',
-            'amount' => 'required|numeric|min:1',
-            'description' => 'required|string|max:255',
-        ]);
+{
+    // Validasi input
+    $request->validate([
+        'username' => 'required|exists:users,username',
+        'nis' => 'required|exists:users,nis',
+        'amount' => 'required|string', // string karena diformat ribuan (e.g., "1.000.000")
+        'description' => 'required|string|max:255',
+    ]);
 
-        $user = User::where('username', $request->username)
-            ->where('nis', $request->nis)
-            ->firstOrFail();
+    // Bersihkan format angka (hilangkan titik)
+    $amount = (int) str_replace('.', '', $request->amount);
 
-        // Kurangi saldo user
-        if ($user->saldo < $request->amount) {
-            return redirect()->back()->withErrors(['amount' => 'Saldo tidak mencukupi.']);
-        }
+    // Ambil user berdasarkan username dan NIS
+    $user = User::where('username', $request->username)
+                ->where('nis', $request->nis)
+                ->firstOrFail();
 
-        $user->saldo -= $request->amount;
-        $user->save();
-
-        // Simpan transaksi
-        Transaction::create([
-            'user_id' => $user->id,
-            'teller_id' => auth()->id(), // ID teller yang sedang login
-            'description' => $request->description,
-            'amount' => -$request->amount,
-        ]);
-
-        return redirect()->route('teller.credit')->with('success', 'Saldo berhasil dikurangi.');
+    // Validasi saldo cukup
+    if ($user->saldo < $amount) {
+        return back()->withErrors(['amount' => 'Saldo tidak mencukupi.']);
     }
+
+    // Kurangi saldo user
+    $user->saldo -= $amount;
+    $user->save();
+
+    // Simpan transaksi dengan nilai minus
+    Transaction::create([
+        'user_id'     => $user->id,
+        'teller_id'   => auth()->id(),
+        'description' => $request->description,
+        'amount'      => -$amount, // dikurangi karena kredit
+    ]);
+
+    return redirect()->route('teller.credit')->with('success', 'Saldo berhasil dikurangi.');
+}
+
 
     // Halaman Riwayat Transaksi
     public function index()

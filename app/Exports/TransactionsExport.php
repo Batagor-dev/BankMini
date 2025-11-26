@@ -26,16 +26,17 @@ class TransactionsExport implements FromCollection, WithHeadings
                 return [
                     'teller' => $transaction->teller->username,
                     'username' => $transaction->user->username,
+                    'name' => $transaction->user->name,
                     'nis' => $transaction->user->nis,
                     'description' => $transaction->description,
                     'amount' => $transaction->amount,
-                    'date' => $transaction->created_at->format('d M Y, H:i'),
+                    'date' => $transaction->created_at->format('d M Y'),
                 ];
             });
     }
 
     public function headings(): array
     {
-        return ['Teller', 'Username', 'NIS', 'Description', 'Amount', 'Date'];
+        return ['Teller', 'Username', 'Nama', 'NIS', 'Description', 'Amount', 'Date'];
     }
 }
